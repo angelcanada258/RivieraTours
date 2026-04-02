@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/rivieratours.html"
+      "destination": "/micheloseas.html"
     },
     {
-      "source": "/micheloseas",
-      "destination": "/micheloseas.html"
+      "source": "/tours",
+      "destination": "/rivieratours.html"
     }
   ]
 }
