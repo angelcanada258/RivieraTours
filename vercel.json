@@ -3,6 +3,10 @@
     {
       "source": "/",
       "destination": "/rivieratours.html"
+    },
+    {
+      "source": "/micheloseas",
+      "destination": "/micheloseas.html"
     }
   ]
 }
