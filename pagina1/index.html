@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Micheloseas | Las Mejores Miches de la Ciudad</title>
+  <meta name="description" content="Arma tu michelada perfecta. Escarchados, gomitas, camarones y pura sabrosura." />
+
+  <!-- Fonts: Oswald para títulos (urbano), Inter para textos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0a0a0c;
+      --bg-surface: #14151a;
+      --neon-pink: #ff0055;
+      --neon-pink-glow: rgba(255, 0, 85, 0.5);
+      --neon-green: #ccff00;
+      --neon-green-glow: rgba(204, 255, 0, 0.4);
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Botones Neón */
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-pink {
+      background: var(--neon-pink);
+      color: #fff;
+      box-shadow: 0 0 15px var(--neon-pink-glow);
+      border: 1px solid var(--neon-pink);
+    }
+
+    .btn-pink:hover {
+      box-shadow: 0 0 30px var(--neon-pink);
+      transform: translateY(-2px);
+    }
+
+    .btn-green {
+      background: var(--neon-green);
+      color: #000;
+      box-shadow: 0 0 15px var(--neon-green-glow);
+      border: 1px solid var(--neon-green);
+    }
+
+    .btn-green:hover {
+      box-shadow: 0 0 30px var(--neon-green);
+      transform: translateY(-2px);
+    }
+
+    /* --- HEADER --- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(10, 10, 12, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 16px 0;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green-glow);
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px var(--neon-pink-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-pink);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--neon-green);
+      cursor: pointer;
+    }
+
+    /* --- HERO --- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: radial-gradient(circle at center, rgba(30,10,20,1) 0%, var(--bg-dark) 80%);
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 25vw;
+      color: rgba(255,255,255,0.02);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 4.5rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-text h1 span {
+      display: block;
+      color: var(--neon-pink);
+      text-shadow: 0 0 20px var(--neon-pink-glow);
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+    }
+
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background: var(--neon-green);
+      filter: blur(100px);
+      opacity: 0.2;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .hero-img {
+      width: 100%;
+      transform: rotate(5deg);
+      animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(5deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    /* --- SECTION TITLES --- */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+    }
+    
+    .section-title h2 span {
+      color: var(--neon-green);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* --- MENU / PASOS --- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 4px;
+      background: var(--neon-pink);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+
+    .step-card:hover {
+      transform: translateY(-10px);
+      background: rgba(20, 21, 26, 0.9);
+      border-color: rgba(255,0,85,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .step-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(204, 255, 0, 0.1);
+      color: var(--neon-green);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-radius: 50%;
+      margin-bottom: 24px;
+      border: 1px solid rgba(204, 255, 0, 0.3);
+    }
+
+    .step-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .step-list {
+      list-style: none;
+      text-align: left;
+      color: var(--text-muted);
+    }
+
+    .step-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-list li:last-child {
+      border-bottom: none;
+    }
+
+    .step-list li i {
+      color: var(--neon-pink);
+      font-size: 0.8rem;
+    }
+
+    /* --- GALERÍA INSTAGRAMEABLE --- */
+    .gallery {
+      background: #0f1014;
+    }
+
+    .masonry {
+      column-count: 3;
+      column-gap: 20px;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      group;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      transition: transform 0.5s;
+    }
+
+    .masonry-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+
+    .masonry-item:hover .item-overlay {
+      opacity: 1;
+    }
+
+    .item-overlay p {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      color: var(--neon-green);
+      letter-spacing: 1px;
+    }
+
+    /* --- CTA / COMUNIDAD --- */
+    .cta-section {
+      background: linear-gradient(45deg, var(--neon-pink), #900030);
+      padding: 80px 0;
+      text-align: center;
+      color: #fff;
+    }
+
+    .cta-section h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #050506;
+      padding: 60px 0 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      font-size: 1.4rem;
+      color: var(--neon-green);
+      margin-bottom: 20px;
+    }
+
+    .footer-col p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      background: var(--bg-surface);
+      color: var(--text-main);
+      font-size: 1.2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--neon-pink);
+      color: #fff;
+      border-color: var(--neon-pink);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--neon-pink-glow);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.3);
+      font-size: 0.9rem;
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-text p {
+        margin: 0 auto 30px;
+      }
+      .hero-bg-text {
+        font-size: 35vw;
+        top: 20%;
+      }
+      .masonry {
+        column-count: 2;
+      }
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-text h1 {
+        font-size: 3.5rem;
+      }
+      .masonry {
+        column-count: 1;
+      }
+      .section-title h2 {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-wrapper">
+      <div class="logo">Michelo<span>seas</span></div>
+      <ul class="nav-links">
+        <li><a href="#menu">Arma tu Miche</a></li>
+        <li><a href="#galeria">La Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-text">PURO FUEGO</div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Rompe la cosed<br><span>Miches de Otro Nivel</span></h1>
+          <p>Experiencias extremas, exceso de sabor y escarchados que pican rico. Entra al club del "daycap" más chido de la ciudad.</p>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="https://wa.me/521234567890?text=Quiero%20pedir%20mi%20michelosea" target="_blank" class="btn btn-pink"><i class="fab fa-whatsapp"></i> Pedir Ahora</a>
+            <a href="#menu" class="btn btn-green">Ver Menú</a>
+          </div>
+        </div>
+        <div class="hero-img-wrap">
+          <!-- Placeholder de bebida refrescante roja / llamativa -->
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&h=800&fit=crop" alt="Michelada espectacular" class="hero-img" style="border-radius: 20px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARMA TU MICHE -->
+  <section id="menu" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Arma tu <span>Monstruo</span></h2>
+        <p>100% personalizada. Tú mandas, nosotros mezclamos. Miles de combinaciones posibles para curar hasta la peor cruda.</p>
+      </div>
+
+      <div class="menu-grid">
+        <!-- Paso 1 -->
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>El Veneno (Base)</h3>
+          <ul class="step-list">
+            <li><i class="fas fa-fire"></i> Michelada Clásica (Limón y Sal)</li>
+            <li><i class="fas fa-fire"></i> Cubana (Salsas negras + limón)</li>
+            <li><i class="fas fa-fire"></i> Clamato Preparado (El levanta muertos)</li>
+            <li><i class="fas fa-fire"></i> Mango Chamoyada (Dulce y picante)</li>
+            <li><i class="fas fa-fire"></i> Tamarindo Fuego (Extracto natural)</li>
+          </ul>
+        </div>
+        
+        <!-- Paso 2 -->
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>La Corona (Escarchado)</h3>
+          <ul class="step-list">
+            <li><i class="fas fa-pepper-hot"></i> Tajín & Sal</li>
+            <li><i class="fas fa-pepper-hot"></i> Chamoy con Miguelito</li>
+            <li><i class="fas fa-pepper-hot"></i> Ajonjolí Garrapiñado picante</li>
+            <li><i class="fas fa-pepper-hot"></i> Tamarindo en pasta</li>
+            <li><i class="fas fa-pepper-hot"></i> Pelón Pelo Rico derretido</li>
+          </ul>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>El Exceso (Toppings)</h3>
+          <ul class="step-list">
+            <li><i class="fas fa-bolt"></i> Gomitas de Mango enchiladas</li>
+            <li><i class="fas fa-bolt"></i> Tostitos / Doritos en bolsa</li>
+            <li><i class="fas fa-bolt"></i> Camarones cocidos (Estilo pacífico)</li>
+            <li><i class="fas fa-bolt"></i> Banderilla de Tamarindo</li>
+            <li><i class="fas fa-bolt"></i> Cacahuates japoneses limados</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA INSTAGRAMEABLE -->
+  <section id="galeria" class="section gallery">
+    <div class="container">
+      <div class="section-title">
+        <h2>Mucha <span>Flama</span> Poca Cosed</h2>
+        <p>Para la foto, pal reel o pa'l antojo. Así servimos en Micheloseas.</p>
+      </div>
+
+      <div class="masonry">
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1615886915643-7f12ac236bba?w=600&h=800&fit=crop" alt="Clamato">
+          <div class="item-overlay"><p>Clamato Especial</p></div>
+        </div>
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1587223075055-82e9a937ddff?w=600&h=600&fit=crop" alt="Cerveza escarchada">
+          <div class="item-overlay"><p>Básico que no falla</p></div>
+        </div>
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&h=900&fit=crop" alt="Cocktail loco">
+          <div class="item-overlay"><p>Mango Chamoy</p></div>
+        </div>
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1575037614876-c3ec29eb10a3?w=600&h=800&fit=crop" alt="Cerveza mexicana">
+          <div class="item-overlay"><p>Cerveza de Barril</p></div>
+        </div>
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&h=600&fit=crop" alt="Fiesta y splash">
+          <div class="item-overlay"><p>Puro Desmadre</p></div>
+        </div>
+        <div class="masonry-item">
+          <img src="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=600&h=800&fit=crop" alt="Snacks">
+          <div class="item-overlay"><p>Botana al Instante</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA COMUNIDAD -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Súbete Al Tardeo</h2>
+      <p>Etiquétanos presumiendo tu Michelosea y gana promos exclusivas y gomitas extra en tu siguiente pedido.</p>
+      <a href="https://tiktok.com" target="_blank" class="btn btn-green" style="margin-right: 15px;"><i class="fab fa-tiktok"></i> @Micheloseas</a>
+      <a href="https://instagram.com" target="_blank" class="btn btn-green"><i class="fab fa-instagram"></i> @Micheloseas</a>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACTO -->
+  <footer id="contacto">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 20px;">Michelo<span>seas</span></div>
+          <p>Somos el punto de encuentro definitivo. Las mejores micheladas, botanas exóticas y la mejor vibra para calmar la sed y la cruda.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>¿Dónde Estamos?</h4>
+          <p><i class="fas fa-map-marker-alt" style="color:var(--neon-pink); width:20px;"></i> Av. del Tardeo #123, Centro Urbano</p>
+          <p><i class="fas fa-clock" style="color:var(--neon-pink); width:20px;"></i> Jue - Dom: 1:00 PM - 10:00 PM</p>
+          <p><i class="fas fa-motorcycle" style="color:var(--neon-pink); width:20px;"></i> Entregas Mágicas: Toda la ciudad</p>
+        </div>
+
+        <div class="footer-col" style="background: rgba(255,0,85,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,0,85,0.2);">
+          <h4 style="color: var(--neon-pink); margin-bottom: 10px;">¡Haz tu pedido!</h4>
+          <p style="font-size: 0.9rem; margin-bottom: 20px;">Sin filas, directo a tu casa. Dinos qué base, escarchado y topping quieres.</p>
+          <a href="https://wa.me/521234567890" target="_blank" class="btn btn-pink" style="width: 100%; text-align: center; padding: 12px; font-size: 1rem;"><i class="fab fa-whatsapp"></i> Pedir por WA</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Micheloseas - Diseño Meximalista. Todos los derechos perreados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
